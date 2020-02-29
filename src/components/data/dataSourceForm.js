@@ -1,5 +1,5 @@
 import React from 'react';
-import DataSource from '../datasource';
+import DataSource from './datasource';
 import './dataSource.css';
 
 class DataSourceForm extends React.Component{
