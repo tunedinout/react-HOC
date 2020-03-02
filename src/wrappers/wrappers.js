@@ -3,6 +3,7 @@ import DataSource from '../components/data/datasource'
 import ItemList from '../components/items/itemList'
 import ColorList from '../components/color/colorList'
 
+//define at one place all the logic for getting part of the global state
 export const ItemListWithSub = withSubscription(
     ItemList,
     (DataSource) => DataSource.getItems()
@@ -21,11 +22,16 @@ export function withSubscription(WrappedComponent, selectData) {
             super(props);
             this.handleChange = this.handleChange.bind(this);
             this.state = {
-                data: selectData(DataSource, props)
+                data: selectData(DataSource)
             }
+
+            // console.log('Data source', DataSource);
+            // console.log('props', props);
+            // console.log(selectData(DataSource, props));
+            // console.log('----------------');
         }
 
-        componentWillMount() {
+        componentDidMount() {
             DataSource.subscribe(this.handleChange);
         }
 
@@ -35,7 +41,7 @@ export function withSubscription(WrappedComponent, selectData) {
 
         handleChange() {
             this.setState({
-                data: selectData(DataSource, this.props)
+                data: selectData(DataSource)
             })
         }
 
